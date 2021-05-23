@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
-// const auth = firebase.auth();
-// const db = firebase.firestore();
 
-const Channel = ({ user = null, db = null }) => {
-  // const Channel = ({ user = null }) => {
+const Channel = ({ db }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-
-  const { uid, displayName, photoUrl } = user;
 
   useEffect(() => {
     if (db) {
@@ -39,9 +34,6 @@ const Channel = ({ user = null, db = null }) => {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid,
-        displayName,
-        photoUrl,
       });
     }
   };
@@ -50,14 +42,11 @@ const Channel = ({ user = null, db = null }) => {
     <>
       <ul>
         {messages.map((message) => (
-          <li key={message.id}>
-            {message.text}
-            {message.number}
-          </li>
+          <li key={message.id}>{message.text}</li>
         ))}
       </ul>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={newMessage} onChange={handleChange} />
+        <input type="text" onChange={handleChange} />
         <button type="submit" disabled={!newMessage}>
           send
         </button>

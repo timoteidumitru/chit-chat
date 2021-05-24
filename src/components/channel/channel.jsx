@@ -4,13 +4,11 @@ import firebase from "firebase/app";
 const Channel = ({ db }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-
   useEffect(() => {
     if (db) {
       const unsubscribe = db
         .collection("messages")
         .orderBy("createdAt")
-        .limit(100)
         .onSnapshot((querySnapshot) => {
           const data = querySnapshot.docs.map((doc) => ({
             ...doc.data(),
@@ -35,6 +33,7 @@ const Channel = ({ db }) => {
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       });
+      setNewMessage("");
     }
   };
 
@@ -46,7 +45,7 @@ const Channel = ({ db }) => {
         ))}
       </ul>
       <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleChange} />
+        <input type="text" value={newMessage} onChange={handleChange} />
         <button type="submit" disabled={!newMessage}>
           send
         </button>

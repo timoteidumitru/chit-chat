@@ -6,13 +6,12 @@ import SignIn from "../sign-in/sign-in";
 import Channel from "../channel/channel";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCTB3f3H338gvZ7fecRZiaDc7klhUh0H_I",
-  authDomain: "chitchat-8b693.firebaseapp.com",
-  projectId: "chitchat-8b693",
-  storageBucket: "chitchat-8b693.appspot.com",
-  messagingSenderId: "789495693908",
-  appId: "1:789495693908:web:85fcecbaf89dd1de1323c1",
-  measurementId: "G-5F69ZXDRP0",
+  apiKey: "AIzaSyDjF4AZOkQCe84idB_9Uq5EXi_ppdmRVJI",
+  authDomain: "login-form-515ab.firebaseapp.com",
+  projectId: "login-form-515ab",
+  storageBucket: "login-form-515ab.appspot.com",
+  messagingSenderId: "915832270541",
+  appId: "1:915832270541:web:8eb95a8f204f39e43bc384",
 });
 
 const auth = firebase.auth();

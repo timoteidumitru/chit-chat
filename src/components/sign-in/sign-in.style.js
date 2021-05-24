@@ -3,20 +3,15 @@ import styled from "styled-components";
 
 export const ButtonWrapper = styled(Button)`
   height: 50px;
-  width: 220px;
+  width: 140px;
   && {
-    border-radius: 30px;
+    border-radius: 8px;
     color: black;
     transition: ease-out 0.5s;
-    border: 2px solid teal;
-    background-color: teal;
-
-    &:hover {
-      border: 2px solid grey;
-      background-color: grey;
-      transition: ease-in 0.5s;
-      color: black;
-      cursor: pointer;
-    }
+    background-color: #3f51b5;
+    color: white;
+    overflow: hidden;
+    margin-left: 40px;
+    margin-bottom: 50px;
   }
 `;

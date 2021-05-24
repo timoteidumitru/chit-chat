@@ -5,7 +5,6 @@ import Channel from "../channel/channel";
 import { auth } from "../config/firebase";
 import { GoogleProvider } from "../config/firebase";
 import { ChatWrapper, Title } from "./chat.style";
-import { Typography } from "@material-ui/core";
 
 const Chat = () => {
   const [user, setUser] = useState(() => auth.currentUser);
@@ -49,15 +48,15 @@ const Chat = () => {
   return (
     <ChatWrapper>
       {user ? (
-        <div>
+        <>
           <SignIn onClick={signOut}>Sign Out</SignIn>
           <Channel user={user} />
-        </div>
+        </>
       ) : (
-        <div>
+        <>
           <Title>Welcome to Chat React with Firebase</Title>
           <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn>
-        </div>
+        </>
       )}
     </ChatWrapper>
   );

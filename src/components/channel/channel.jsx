@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import { db } from "../config/firebase";
-import { Button } from "@material-ui/core";
 import { Field, Form, Formik } from "formik";
 import { initialValues, validationSchema } from "./channel.form";
 import { TextField } from "formik-material-ui";
 import { StyledChat, List } from "./channel.style";
 import Message from "../message/message";
+import { ButtonWrapper } from "../sign-in/sign-in.style";
 
 const Channel = ({ user = null }) => {
   const [messages, setMessages] = useState([]);
@@ -30,7 +30,6 @@ const Channel = ({ user = null }) => {
         });
       return unsubscribe;
     }
-
     inputRef.current.focus();
   }, []);
 
@@ -65,24 +64,25 @@ const Channel = ({ user = null }) => {
       }
       <Formik initialValues={initialValues} validationSchema={validationSchema}>
         {({ isValid }) => (
-          <Form onSubmit={handleSubmit} onChange={handleChange}>
+          <Form onSubmit={handleSubmit} onChange={handleChange} ref={inputRef}>
             <Field
               component={TextField}
               type="text"
               value={newMessage}
               name="text"
               id="text"
+              ref={inputRef}
               label="Add a message"
-              refs={inputRef}
             />
-            <Button
+            <ButtonWrapper
               variant="contained"
               color="primary"
               type="submit"
               disabled={!isValid}
+              size="large"
             >
               send
-            </Button>
+            </ButtonWrapper>
           </Form>
         )}
       </Formik>

@@ -2,12 +2,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 html,
-body,
-#root {
+body {
   height: 100%;
   width: 100%;
-  background-color: beige;
+}
+
+#root {
 }

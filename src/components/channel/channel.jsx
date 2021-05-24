@@ -6,11 +6,14 @@ import { Field, Form, Formik } from "formik";
 import { initialValues, validationSchema } from "./channel.form";
 import { TextField } from "formik-material-ui";
 import { StyledChat } from "./channel.style";
+import Message from "../message/message";
 
-const Channel = () => {
+const Channel = ({ user = null }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const inputRef = useRef();
+
+  const { uid, displayName, photoURL } = user;
 
   useEffect(() => {
     if (db) {
@@ -20,6 +23,7 @@ const Channel = () => {
         .onSnapshot((querySnapshot) => {
           const data = querySnapshot.docs.map((doc) => ({
             ...doc.data(),
+            id: doc.id,
           }));
           // update state
           setMessages(data);
@@ -39,7 +43,9 @@ const Channel = () => {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        name: "user",
+        uid,
+        displayName,
+        photoURL,
       });
       setNewMessage("");
     }
@@ -52,7 +58,7 @@ const Channel = () => {
         <StyledChat>
           {messages.map((message, key) => (
             <li key={key}>
-              {message.name}: {message.text}
+              <Message {...message} />
             </li>
           ))}
         </StyledChat>

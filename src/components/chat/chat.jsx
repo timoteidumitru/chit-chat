@@ -49,7 +49,7 @@ const Chat = () => {
       {user ? (
         <div>
           <SignIn onClick={signOut}>Sign Out</SignIn>
-          <Channel />
+          <Channel user={user} />
         </div>
       ) : (
         <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn>

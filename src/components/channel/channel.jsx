@@ -8,7 +8,7 @@ import { StyledChat, List } from "./channel.style";
 import Message from "../message/message";
 import { ButtonWrapper } from "../sign-in/sign-in.style";
 
-const Channel = ({ user = null }) => {
+const Channel = ({ user }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const inputRef = useRef();

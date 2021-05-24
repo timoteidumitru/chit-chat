@@ -47,17 +47,14 @@ const Chat = () => {
 
   return (
     <ChatWrapper>
-      {user ? (
-        <>
-          <SignIn onClick={signOut}>Sign Out</SignIn>
-          <Channel user={user} />
-        </>
-      ) : (
-        <>
-          <Title>Welcome to Chat React with Firebase</Title>
-          <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn>
-        </>
-      )}
+      <>
+        <Channel user={user} />
+        {/* <SignIn onClick={signOut}>Sign Out</SignIn> */}
+      </>
+      <>
+        {/* <Title>Welcome to Chat React with Firebase</Title> */}
+        {/* <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn> */}
+      </>
     </ChatWrapper>
   );
 };

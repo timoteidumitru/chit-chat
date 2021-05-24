@@ -5,6 +5,7 @@ import { Button } from "@material-ui/core";
 import { Field, Form, Formik } from "formik";
 import { initialValues, validationSchema } from "./channel.form";
 import { TextField } from "formik-material-ui";
+import { StyledChat } from "./channel.style";
 
 const Channel = () => {
   const [messages, setMessages] = useState([]);
@@ -38,6 +39,7 @@ const Channel = () => {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        name: "user",
       });
       setNewMessage("");
     }
@@ -47,11 +49,13 @@ const Channel = () => {
   return (
     <>
       {
-        <ul>
+        <StyledChat>
           {messages.map((message, key) => (
-            <li key={key}>{message.text}</li>
+            <li key={key}>
+              {message.name}: {message.text}
+            </li>
           ))}
-        </ul>
+        </StyledChat>
       }
       <Formik initialValues={initialValues} validationSchema={validationSchema}>
         {({ isValid }) => (

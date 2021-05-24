@@ -1,11 +1,11 @@
-import { Button } from "@material-ui/core";
 import React from "react";
+import { ButtonWrapper } from "./sign-in.style";
 
 const SignIn = ({ onClick, children }) => {
   return (
-    <Button variant="contained" color="primary" onClick={onClick}>
+    <ButtonWrapper variant="contained" color="primary" onClick={onClick}>
       {children}
-    </Button>
+    </ButtonWrapper>
   );
 };
 

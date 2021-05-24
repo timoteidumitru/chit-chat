@@ -1,6 +1,6 @@
 import React from "react";
 import { formatRelative } from "date-fns";
-import { StyledMessage } from "./message.style";
+import { DataMessage, StyledMessage } from "./message.style";
 
 const Message = ({
   createdAt = null,

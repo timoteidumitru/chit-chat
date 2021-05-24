@@ -4,6 +4,8 @@ import SignIn from "../sign-in/sign-in";
 import Channel from "../channel/channel";
 import { auth } from "../config/firebase";
 import { GoogleProvider } from "../config/firebase";
+import { ChatWrapper, Title } from "./chat.style";
+import { Typography } from "@material-ui/core";
 
 const Chat = () => {
   const [user, setUser] = useState(() => auth.currentUser);
@@ -45,16 +47,19 @@ const Chat = () => {
   if (initializing) return "Loading...";
 
   return (
-    <div>
+    <ChatWrapper>
       {user ? (
         <div>
           <SignIn onClick={signOut}>Sign Out</SignIn>
           <Channel user={user} />
         </div>
       ) : (
-        <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn>
+        <div>
+          <Title>Welcome to Chat React with Firebase</Title>
+          <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn>
+        </div>
       )}
-    </div>
+    </ChatWrapper>
   );
 };
 

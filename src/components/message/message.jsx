@@ -1,5 +1,6 @@
 import React from "react";
 import { formatRelative } from "date-fns";
+import { StyledMessage } from "./message.style";
 
 const Message = ({
   createdAt = null,
@@ -8,18 +9,22 @@ const Message = ({
   photoURL = "",
 }) => {
   return (
-    <div>
-      {photoURL ? (
-        <img src={photoURL} alt="avatar" width={45} height={45} />
-      ) : null}
-      {displayName ? <p>{displayName}</p> : null}
-      {text ? <p>{text}</p> : null}
-      {createdAt?.seconds ? (
-        <span>
-          {formatRelative(new Date(createdAt.seconds * 1000), new Date())}
-        </span>
-      ) : null}
-    </div>
+    <StyledMessage>
+      <div>
+        {photoURL ? (
+          <img src={photoURL} alt="avatar" width={45} height={45} />
+        ) : null}
+      </div>
+      <div>
+        {displayName ? <p>{displayName}</p> : null}
+        {text ? <p>{text}</p> : null}
+        {createdAt?.seconds ? (
+          <span>
+            {formatRelative(new Date(createdAt.seconds * 1000), new Date())}
+          </span>
+        ) : null}
+      </div>
+    </StyledMessage>
   );
 };
 

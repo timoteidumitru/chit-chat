@@ -1,12 +1,8 @@
-import { Button } from "@material-ui/core";
 import React from "react";
+import { ButtonWrapper } from "./sign-in.style";
 
 const SignIn = ({ onClick, children }) => {
-  return (
-    <Button variant="contained" color="primary" onClick={onClick}>
-      {children}
-    </Button>
-  );
+  return <ButtonWrapper onClick={onClick}>{children}</ButtonWrapper>;
 };
 
 export default SignIn;

@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core";
 import { Field, Form, Formik } from "formik";
 import { initialValues, validationSchema } from "./channel.form";
 import { TextField } from "formik-material-ui";
-import { StyledChat } from "./channel.style";
+import { StyledChat, List } from "./channel.style";
 import Message from "../message/message";
 
 const Channel = ({ user = null }) => {
@@ -57,9 +57,9 @@ const Channel = ({ user = null }) => {
       {
         <StyledChat>
           {messages.map((message, key) => (
-            <li key={key}>
+            <List key={key}>
               <Message {...message} />
-            </li>
+            </List>
           ))}
         </StyledChat>
       }

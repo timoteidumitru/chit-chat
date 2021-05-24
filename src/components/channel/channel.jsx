@@ -8,12 +8,12 @@ import { StyledChat, List } from "./channel.style";
 import Message from "../message/message";
 import { ButtonWrapper } from "../sign-in/sign-in.style";
 
-const Channel = () => {
+const Channel = ({ user }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const inputRef = useRef();
 
-  // const { uid, displayName, photoURL } = user;
+  const { uid, displayName, photoURL } = user;
 
   useEffect(() => {
     if (db) {
@@ -42,9 +42,9 @@ const Channel = () => {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        // uid,
-        // displayName,
-        // photoURL,
+        uid,
+        displayName,
+        photoURL,
       });
       setNewMessage("");
     }

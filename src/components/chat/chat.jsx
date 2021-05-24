@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
 import SignIn from "../sign-in/sign-in";
 import Channel from "../channel/channel";
-
-firebase.initializeApp({
-  apiKey: "AIzaSyDjF4AZOkQCe84idB_9Uq5EXi_ppdmRVJI",
-  authDomain: "login-form-515ab.firebaseapp.com",
-  projectId: "login-form-515ab",
-  storageBucket: "login-form-515ab.appspot.com",
-  messagingSenderId: "915832270541",
-  appId: "1:915832270541:web:8eb95a8f204f39e43bc384",
-});
-
-const auth = firebase.auth();
-const db = firebase.firestore();
+import { auth } from "../config/firebase";
+import { GoogleProvider } from "../config/firebase";
 
 const Chat = () => {
   const [user, setUser] = useState(() => auth.currentUser);
@@ -38,11 +26,9 @@ const Chat = () => {
   }, [initializing]);
 
   const signInWithGoogle = async () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-
     auth.useDeviceLanguage();
     try {
-      await auth.signInWithPopup(provider);
+      await auth.signInWithPopup(GoogleProvider);
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +49,7 @@ const Chat = () => {
       {user ? (
         <div>
           <SignIn onClick={signOut}>Sign Out</SignIn>
-          <Channel db={db} />
+          <Channel />
         </div>
       ) : (
         <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn>

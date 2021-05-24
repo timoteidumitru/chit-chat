@@ -1,7 +1,12 @@
+import { Button } from "@material-ui/core";
 import React from "react";
 
-const SignIn = ({ onClick = null, children = null }) => {
-  return <button onClick={onClick}>{children}</button>;
+const SignIn = ({ onClick, children }) => {
+  return (
+    <Button variant="contained" color="primary" onClick={onClick}>
+      {children}
+    </Button>
+  );
 };
 
 export default SignIn;

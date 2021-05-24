@@ -9,3 +9,5 @@ export const StyledMessage = styled.div`
     border-radius: 50%;
   }
 `;
+
+export const DataMessage = styled.div``;

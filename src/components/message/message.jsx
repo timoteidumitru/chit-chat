@@ -15,7 +15,7 @@ const Message = ({
           <img src={photoURL} alt="avatar" width={45} height={45} />
         ) : null}
       </div>
-      <div>
+      <DataMessage>
         {displayName ? <p>{displayName}</p> : null}
         {text ? <p>{text}</p> : null}
         {createdAt?.seconds ? (
@@ -23,7 +23,7 @@ const Message = ({
             {formatRelative(new Date(createdAt.seconds * 1000), new Date())}
           </span>
         ) : null}
-      </div>
+      </DataMessage>
     </StyledMessage>
   );
 };

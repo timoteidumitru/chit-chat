@@ -8,12 +8,12 @@ import { StyledChat, List } from "./channel.style";
 import Message from "../message/message";
 import { ButtonWrapper } from "../sign-in/sign-in.style";
 
-const Channel = ({ user }) => {
+const Channel = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const inputRef = useRef();
 
-  const { uid, displayName, photoURL } = user;
+  // const { uid, displayName, photoURL } = user;
 
   useEffect(() => {
     if (db) {
@@ -42,9 +42,9 @@ const Channel = ({ user }) => {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid,
-        displayName,
-        photoURL,
+        // uid,
+        // displayName,
+        // photoURL,
       });
       setNewMessage("");
     }
@@ -64,14 +64,13 @@ const Channel = ({ user }) => {
       }
       <Formik initialValues={initialValues} validationSchema={validationSchema}>
         {({ isValid }) => (
-          <Form onSubmit={handleSubmit} onChange={handleChange} ref={inputRef}>
+          <Form onSubmit={handleSubmit} onChange={handleChange}>
             <Field
               component={TextField}
               type="text"
               value={newMessage}
               name="text"
               id="text"
-              ref={inputRef}
               label="Add a message"
             />
             <ButtonWrapper

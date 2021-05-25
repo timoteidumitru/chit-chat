@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import firebase from "firebase/app";
+// import firebase from "firebase/app";
 import SignIn from "../sign-in/sign-in";
 import Channel from "../channel/channel";
 import { auth } from "../config/firebase";
@@ -35,26 +35,28 @@ const Chat = () => {
     }
   };
 
-  const signOut = async () => {
-    try {
-      await firebase.auth().signOut();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const signOut = async () => {
+  //   try {
+  //     await firebase.auth().signOut();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   if (initializing) return "Loading...";
-
   return (
     <ChatWrapper>
-      <>
-        <Channel user={user} />
-        {/* <SignIn onClick={signOut}>Sign Out</SignIn> */}
-      </>
-      <>
-        {/* <Title>Welcome to Chat React with Firebase</Title> */}
-        {/* <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn> */}
-      </>
+      {user ? (
+        <>
+          {/* <SignIn onClick={signOut}>Sign Out</SignIn> */}
+          <Channel user={user} />
+        </>
+      ) : (
+        <>
+          <Title>Welcome to Chat React with Firebase</Title>
+          <SignIn onClick={signInWithGoogle}>Sign in with google</SignIn>
+        </>
+      )}
     </ChatWrapper>
   );
 };

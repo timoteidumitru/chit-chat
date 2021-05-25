@@ -8,3 +8,11 @@ export const StyledChat = styled.div`
 export const List = styled.div`
   list-style: none;
 `;
+export const TextInput = styled.input`
+  height: 50px;
+  width: 200px;
+  & label {
+    height: 10px;
+    overflow: unset;
+  }
+`;

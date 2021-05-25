@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import { db } from "../config/firebase";
-import { Field, Form, Formik } from "formik";
+import { Formik } from "formik";
 import { initialValues, validationSchema } from "./channel.form";
-import { TextField } from "formik-material-ui";
-import { StyledChat, List } from "./channel.style";
+import { StyledChat, List, TextInput } from "./channel.style";
 import Message from "../message/message";
-import { ButtonWrapper } from "../sign-in/sign-in.style";
+import { ButtonWrapper, FormWrapper } from "../sign-in/sign-in.style";
+import "firebase/database";
 
 const Channel = ({ user }) => {
+  const inputRef = useRef();
+  const focusRef = useRef();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const inputRef = useRef();
 
-  const { uid, displayName, photoURL } = user;
+  const { displayName, photoURL } = user;
 
   useEffect(() => {
     if (db) {
@@ -25,12 +26,13 @@ const Channel = ({ user }) => {
             ...doc.data(),
             id: doc.id,
           }));
+          inputRef.current?.scrollIntoView();
+          focusRef.current?.focus();
           // update state
           setMessages(data);
         });
       return unsubscribe;
     }
-    inputRef.current.focus();
   }, []);
 
   const handleChange = (e) => {
@@ -42,7 +44,6 @@ const Channel = ({ user }) => {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid,
         displayName,
         photoURL,
       });
@@ -58,21 +59,27 @@ const Channel = ({ user }) => {
           {messages.map((message, key) => (
             <List key={key}>
               <Message {...message} />
+              <button
+                onClick={() =>
+                  db.collection("messages").doc(message.id).delete()
+                }
+              >
+                x
+              </button>
             </List>
           ))}
         </StyledChat>
       }
       <Formik initialValues={initialValues} validationSchema={validationSchema}>
         {({ isValid }) => (
-          <Form onSubmit={handleSubmit} onChange={handleChange} ref={inputRef}>
-            <Field
-              component={TextField}
+          <FormWrapper onSubmit={handleSubmit}>
+            <TextInput
+              onChange={handleChange}
               type="text"
               value={newMessage}
               name="text"
-              id="text"
-              ref={inputRef}
               label="Add a message"
+              ref={focusRef}
             />
             <ButtonWrapper
               variant="contained"
@@ -83,9 +90,10 @@ const Channel = ({ user }) => {
             >
               send
             </ButtonWrapper>
-          </Form>
+          </FormWrapper>
         )}
       </Formik>
+      <div ref={inputRef} />
     </>
   );
 };

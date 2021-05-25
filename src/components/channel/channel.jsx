@@ -15,7 +15,7 @@ const Channel = ({ user }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
-  const { displayName, photoURL, uid } = user;
+  const { displayName, photoURL } = user;
 
   useEffect(() => {
     if (db) {
@@ -39,6 +39,7 @@ const Channel = ({ user }) => {
   const handleChange = (e) => {
     setNewMessage(e.target.value);
   };
+
   const handleSubmit = (e) => {
     if (db) {
       db.collection("messages").add({
@@ -46,24 +47,10 @@ const Channel = ({ user }) => {
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         displayName,
         photoURL,
-        uid,
       });
       setNewMessage("");
     }
     return e.preventDefault();
-  };
-  // const { id } = messages;
-  // const id = messages.map((r) => r.id);
-
-  const handleDelete = (e) => {
-    // messages.map((r) => r.id);
-    e.stopPropagation();
-
-    // db.collection("messages").doc(newMessage.id).delete();
-    for (let { id } of messages) {
-      db.collection("messages").doc(id).delete();
-      console.log(id);
-    }
   };
 
   return (
@@ -73,7 +60,13 @@ const Channel = ({ user }) => {
           {messages.map((message, key) => (
             <List key={key}>
               <Message {...message} />
-              <button onClick={handleDelete}>x</button>
+              <button
+                onClick={() =>
+                  db.collection("messages").doc(message.id).delete()
+                }
+              >
+                x
+              </button>
             </List>
           ))}
         </StyledChat>

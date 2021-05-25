@@ -7,12 +7,7 @@ import {
   MessageName,
 } from "./message.style";
 
-const Message = ({
-  createdAt = null,
-  text = "",
-  displayName = "",
-  photoURL = "",
-}) => {
+const Message = ({ createdAt, text, displayName, photoURL }) => {
   return (
     <StyledMessage>
       <div>{photoURL ? <img src={photoURL} alt="avatar" /> : null}</div>

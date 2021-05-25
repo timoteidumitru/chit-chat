@@ -4,11 +4,13 @@ import styled from "styled-components";
 export const FormWrapper = styled(Form)`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  height: auto;
+  width: 400px;
   /* grid-column: 2/-2; */
   /* margin: 0 auto; */
   grid-gap: 1rem;
   /* padding-left: 90px; */
+  padding-bottom: 30px;
+  padding-left: 30px;
 `;
 
 export const ButtonWrapper = styled(Button)`

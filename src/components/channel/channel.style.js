@@ -11,7 +11,7 @@ export const List = styled.div`
 `;
 export const TextInput = styled(Field)`
   height: 60px;
-  width: 250px;
+  width: 200px;
   & label {
     height: 10px;
     overflow: unset;

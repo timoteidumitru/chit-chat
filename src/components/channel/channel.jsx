@@ -1,19 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import { db } from "../config/firebase";
-import { Field, Form, Formik } from "formik";
+import { Formik } from "formik";
 import { initialValues, validationSchema } from "./channel.form";
 import { TextField } from "formik-material-ui";
-import { StyledChat, List } from "./channel.style";
+import { StyledChat, List, TextInput } from "./channel.style";
 import Message from "../message/message";
-import { ButtonWrapper } from "../sign-in/sign-in.style";
+import { ButtonWrapper, FormWrapper } from "../sign-in/sign-in.style";
+import "firebase/database";
 
 const Channel = ({ user }) => {
+  const inputRef = useRef();
+  const focusRef = useRef();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const inputRef = useRef();
 
-  const { uid, displayName, photoURL } = user;
+  const { displayName, photoURL, uid } = user;
 
   useEffect(() => {
     if (db) {
@@ -25,30 +27,43 @@ const Channel = ({ user }) => {
             ...doc.data(),
             id: doc.id,
           }));
+          inputRef.current?.scrollIntoView();
+          focusRef.current?.focus();
           // update state
           setMessages(data);
         });
       return unsubscribe;
     }
-    inputRef.current.focus();
   }, []);
 
   const handleChange = (e) => {
     setNewMessage(e.target.value);
   };
-
   const handleSubmit = (e) => {
     if (db) {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid,
         displayName,
         photoURL,
+        uid,
       });
       setNewMessage("");
     }
     return e.preventDefault();
+  };
+  // const { id } = messages;
+  // const id = messages.map((r) => r.id);
+
+  const handleDelete = (e) => {
+    // messages.map((r) => r.id);
+    e.stopPropagation();
+
+    // db.collection("messages").doc(newMessage.id).delete();
+    for (let { id } of messages) {
+      db.collection("messages").doc(id).delete();
+      console.log(id);
+    }
   };
 
   return (
@@ -58,20 +73,21 @@ const Channel = ({ user }) => {
           {messages.map((message, key) => (
             <List key={key}>
               <Message {...message} />
+              <button onClick={handleDelete}>x</button>
             </List>
           ))}
         </StyledChat>
       }
       <Formik initialValues={initialValues} validationSchema={validationSchema}>
         {({ isValid }) => (
-          <Form onSubmit={handleSubmit} onChange={handleChange}>
-            <Field
+          <FormWrapper onSubmit={handleSubmit} onChange={handleChange}>
+            <TextInput
               component={TextField}
               type="text"
               value={newMessage}
               name="text"
-              id="text"
               label="Add a message"
+              ref={focusRef}
             />
             <ButtonWrapper
               variant="contained"
@@ -82,9 +98,10 @@ const Channel = ({ user }) => {
             >
               send
             </ButtonWrapper>
-          </Form>
+          </FormWrapper>
         )}
       </Formik>
+      <div ref={inputRef} />
     </>
   );
 };

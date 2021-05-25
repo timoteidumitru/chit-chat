@@ -30,8 +30,8 @@ export const MessageText = styled.div`
   text-align: left;
   margin-top: 10px;
   margin-left: 10px;
-  background: rgb(35 33 33);
-  border: 2px solid rgb(35 33 33);
+  background: #3f51b5;
+  border: 2px solid #3f51b5;
   border-radius: 10px;
   padding: 4px;
   padding-left: 5px;

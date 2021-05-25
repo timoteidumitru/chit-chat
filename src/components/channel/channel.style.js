@@ -1,4 +1,3 @@
-import { Field } from "formik";
 import styled from "styled-components";
 
 export const StyledChat = styled.div`
@@ -9,7 +8,7 @@ export const StyledChat = styled.div`
 export const List = styled.div`
   list-style: none;
 `;
-export const TextInput = styled(Field)`
+export const TextInput = styled.input`
   height: 50px;
   width: 200px;
   & label {

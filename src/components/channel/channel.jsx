@@ -3,7 +3,6 @@ import firebase from "firebase/app";
 import { db } from "../config/firebase";
 import { Formik } from "formik";
 import { initialValues, validationSchema } from "./channel.form";
-import { TextField } from "formik-material-ui";
 import { StyledChat, List, TextInput } from "./channel.style";
 import Message from "../message/message";
 import { ButtonWrapper, FormWrapper } from "../sign-in/sign-in.style";
@@ -73,9 +72,9 @@ const Channel = ({ user }) => {
       }
       <Formik initialValues={initialValues} validationSchema={validationSchema}>
         {({ isValid }) => (
-          <FormWrapper onSubmit={handleSubmit} onChange={handleChange}>
+          <FormWrapper onSubmit={handleSubmit}>
             <TextInput
-              component={TextField}
+              onChange={handleChange}
               type="text"
               value={newMessage}
               name="text"
